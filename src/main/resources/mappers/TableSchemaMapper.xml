@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.jaiz.orm.codegenerator.dao.TableSchemaDAO">
+
+	<select id="queryColumns" resultMap="tableColumn">
+		select COLUMN_NAME,DATA_TYPE,NUMERIC_PRECISION,NUMERIC_SCALE,COLUMN_COMMENT
+		from information_schema.COLUMNS where TABLE_SCHEMA=#{dbName}
+		and TABLE_NAME=#{tableName}
+	</select>
+	
+	<resultMap type="com.jaiz.orm.codegenerator.entity.TableColumn" id="tableColumn">
+		<result column="COLUMN_NAME" property="columnName"/>
+		<result column="DATA_TYPE" property="dataType"/>
+		<result column="NUMERIC_PRECISION" property="numericPrecision"/>
+		<result column="NUMERIC_SCALE" property="numericScale"/>
+		<result column="COLUMN_COMMENT" property="columnComment"/>
+	</resultMap>
+</mapper>
