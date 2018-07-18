@@ -3,6 +3,7 @@ package com.jaiz.orm.codegenerator.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystemAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,17 +83,65 @@ public class Generator {
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
+	
+	//包名
+	private String packageName;
+	
+	//文件位置
+	private String filePosition;
+	
+	//类名
+	private String className;
 
 	/**
 	 * 生成器开工啦!
 	 */
 	public void work() {
+		//初始化一些数据
+		// 包名
+		this.packageName = orderPoPackageName();
+		// 文件位置
+		this.filePosition = orderPoFilePosition(packageName);
+		// 类名
+		this.className = StringUtil.tableName2POClassName(this.tableName);
+		//初始化模块包结构
+		initConstruct();
+		
 		//表字段转成员变量元数据
 		tableColumns2TypeMemberSchemas();
 		// 生成po
 		poWork();
 		// 生成单表sql
 		sqlWork();
+	}
+
+	/**
+	 * 初始化模块包
+	 * +packagename
+	 * |+model
+	 * ||-po
+	 * --------------
+	 * 后续可以把vo,dao模块加入
+	 */
+	private void initConstruct() {
+		String dir=ConfigHolder.getStringByName("java.src.path")
+				+File.separator+StringUtil.packageName2FilePath(ConfigHolder.getStringByName("pack.path"));
+		File rootPack=new File(dir);
+		if(!rootPack.exists() || rootPack.isFile()) {
+			throw new RuntimeException("所选路径不存在,请配置正确的java.src.path和pack.path");
+		}
+		//model目录
+		File modelDir=new File(dir+File.separator+"model");
+		if(!modelDir.exists()) {
+			//不存在则创建
+			modelDir.mkdir();
+		}
+		
+		//po目录
+		File poDir=new File(modelDir.getAbsolutePath()+File.separator+"po");
+		if(!poDir.exists()) {
+			poDir.mkdir();
+		}
 	}
 
 	/**
@@ -166,12 +215,6 @@ public class Generator {
 	 */
 	private void poWork() {
 		if (genPO) {
-			// 包名
-			String packageName = orderPoPackageName();
-			// 文件位置
-			String filePosition = orderPoFilePosition(packageName);
-			// 类名
-			String className = StringUtil.tableName2POClassName(this.tableName);
 			
 			//填充模板
 			TemplatePlaceHolder ph=new TemplatePlaceHolder();
