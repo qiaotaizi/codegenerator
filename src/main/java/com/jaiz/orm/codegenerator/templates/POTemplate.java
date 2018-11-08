@@ -90,18 +90,10 @@ public class POTemplate {
 		this.content=sb.toString();
 	}
 
-	/**
-	 * 爱上了大街上老大
-	 * @return
-	 */
 	public String getContent() {
 		return content;
 	}
 
-	/**
-	 * 啊实打实的
-	 * @param content
-	 */
 	public void setContent(String content) {
 		this.content = content;
 	}

@@ -8,6 +8,11 @@ import com.jaiz.orm.codegenerator.entity.TableColumn;
 
 public interface TableSchemaDAO {
 
-	
-	public List<TableColumn> queryColumns(@Param("dbName")String dbName,@Param("tableName")String tableName);
+	/**
+	 * 查询表字段元信息
+	 * @param dbName
+	 * @param tableName
+	 * @return
+	 */
+	List<TableColumn> queryColumns(@Param("dbName")String dbName,@Param("tableName")String tableName);
 }
