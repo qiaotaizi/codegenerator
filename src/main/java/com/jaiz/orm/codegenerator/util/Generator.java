@@ -105,7 +105,7 @@ public class Generator {
         // 类名
         this.className = StringUtil.tableName2POClassName(this.tableName);
         //初始化模块包结构
-        initConstruct();
+        //initConstruct();
 
         //表字段转成员变量元数据
         tableColumns2TypeMemberSchemas();
