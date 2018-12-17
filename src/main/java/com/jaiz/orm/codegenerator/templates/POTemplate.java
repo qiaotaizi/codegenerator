@@ -58,7 +58,6 @@ public class POTemplate {
 			.append(lsep)
 			.append("\t */")
 			.append(lsep)
-			.append(lsep)
 			//方法
 			.append("\tpublic "+member.getMemberType()+" "+StringUtil.memberName2Getter(member.getMemberName())+"() {")
 			.append(lsep)

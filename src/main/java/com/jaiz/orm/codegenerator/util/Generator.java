@@ -176,6 +176,7 @@ public class Generator {
                     hasDate = true;
                     break;
                 case "tinyint":
+                case "smallint":
                     schema.setMemberType("Integer");
                     break;
                 case "int":
