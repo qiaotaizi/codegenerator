@@ -168,6 +168,7 @@ public class Generator {
                     hasBigDecimal = true;
                     break;
                 case "timestamp":
+                case "date":
                     schema.setMemberType("Date");
                     hasDate = true;
                     break;
