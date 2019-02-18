@@ -3,7 +3,6 @@ package com.jaiz.orm.codegenerator.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileSystemAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,9 +208,43 @@ public class Generator {
      * 生成sql
      */
     private void sqlWork() {
-        // 先不做
         if (genSQL) {
-            System.out.println("sql生成暂未实现");
+            System.out.println(Constants.STDOUT_SEPERATOR);
+            System.out.println("生成sql模板");
+
+            //将列名和属性名整理成数组,使用joins方法拼接
+            String[] columnNameArr=new String[this.members.size()];
+            String[] propertyNameArr=new String[this.members.size()];
+            String callerTemplate="${caller}.";
+            for(int i=0;i<members.size();i++){
+                columnNameArr[i]=cols.get(i).getColumnName();
+                propertyNameArr[i]=callerTemplate+members.get(i).getMemberName();
+            }
+            String allColumns=String.join(" , ",columnNameArr);
+            //带.调用的所有属性
+            String allPropertiesWithBeanCall=String.join(" , ",propertyNameArr);
+            //增
+            StringBuilder insert=new StringBuilder("INSERT INTO ");
+            insert.append(tableName)
+                    .append(" (")
+                    .append(allColumns)
+            .append(") VALUES (").append(allPropertiesWithBeanCall).append(")");
+            System.out.println(Constants.STDOUT_SEPERATOR);
+            System.out.println("增(insert):");
+            System.out.println(insert);
+            System.out.println(Constants.STDOUT_SEPERATOR);
+            //删
+            System.out.println("删(delete):");
+            System.out.println("DELETE FROM "+tableName+" WHERE ...");
+            System.out.println(Constants.STDOUT_SEPERATOR);
+            //改
+            System.out.println("改(update):");
+            System.out.println("UPDATE "+tableName+"SET ... WHERE ...");
+            System.out.println(Constants.STDOUT_SEPERATOR);
+            //查
+            System.out.println("查(select):");
+            System.out.println("SELECT "+allColumns+" FROM "+tableName+" WHERE ...");
+
         }
     }
 
