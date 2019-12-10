@@ -48,7 +48,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * 表名转PO类
+	 * 表名转VO类
 	 * @param tableName
 	 * @return
 	 */
@@ -71,7 +71,7 @@ public class StringUtil {
 				sb.append(c);
 			}
 		}
-		sb.append("PO");
+		sb.append("VO");
 		return sb.toString();
 	}
 

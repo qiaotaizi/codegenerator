@@ -168,24 +168,22 @@ public class Generator {
                     break;
                 case "timestamp":
                 case "date":
-                    schema.setMemberType("Date");
-                    hasDate = true;
-                    break;
                 case "datetime":
                     schema.setMemberType("Date");
                     hasDate = true;
                     break;
                 case "tinyint":
                 case "smallint":
+                case "int":
                     schema.setMemberType("Integer");
                     break;
-                case "int":
-                    if (col.getNumericPrecision() > 8) {
-                        schema.setMemberType("Long");
-                    } else {
-                        schema.setMemberType("Integer");
-                    }
-                    break;
+//                case "int":
+//                    if (col.getNumericPrecision() > 8) {
+//                        schema.setMemberType("Long");
+//                    } else {
+//                        schema.setMemberType("Integer");
+//                    }
+//                    break;
                 case "bigint":
                     schema.setMemberType("Long");
                     break;

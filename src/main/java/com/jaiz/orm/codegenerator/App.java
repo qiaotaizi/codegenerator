@@ -14,10 +14,6 @@ import com.jaiz.orm.codegenerator.util.Constants;
 import com.jaiz.orm.codegenerator.util.DataSourceHolder;
 import com.jaiz.orm.codegenerator.util.Generator;
 
-/**
- * Hello world!
- *
- */
 public class App {
 	
 	
